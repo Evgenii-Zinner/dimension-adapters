@@ -56,11 +56,14 @@ const chainConfig: Record<string, string> = {
   [CHAIN.SCROLL]:'scroll',
   [CHAIN.TAIKO]:'taiko',
   [CHAIN.ZKLINK]:'zklink',
-  // [CHAIN.ERA]: "zksync-era",
-  // [CHAIN.SEI]:'sei',
-  // [CHAIN.MORPH]:'morph',
-  // [CHAIN.BOUNCE_BIT]: "bounce-bit",
-  // [CHAIN.GRAVITY]:'gravity',
+  [CHAIN.ERA]: 'zksync-era',
+  [CHAIN.SEI]: 'sei',
+  [CHAIN.MORPH]: 'morph',
+  [CHAIN.BOUNCE_BIT]: 'bounce-bit',
+  [CHAIN.GRAVITY]: 'gravity',
+  [CHAIN.STELLAR]: 'xlm',
+  [CHAIN.FOGO]: 'FOGO',
+  [CHAIN.COTI]: 'COTI',
   [CHAIN.SONIC]:'sonic',
   [CHAIN.HYPERLIQUID]:'hype',
   [CHAIN.BERACHAIN]:'bera',
@@ -88,6 +91,7 @@ const fetch = async (options: FetchOptions) => {
     return defaultRes
   }
   let dailyVolume = dailyData.totalUSD;
+  // Safeguard against abnormal volume spikes reported on Arbitrum (PR #4051)
   if ((options.chain == CHAIN.ARBITRUM) && (dailyVolume > 1000000)) {
     dailyVolume = 0
   }
